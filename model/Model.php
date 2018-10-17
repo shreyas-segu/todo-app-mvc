@@ -27,7 +27,8 @@ class Model
 
   public function getTaskList($conn)
   {
-    $queryResult = mysqli_query($conn, "SELECT * FROM vtiger_task_list");
+    $statement = "SELECT * FROM vtiger_task_list";
+    $queryResult = mysqli_query($conn, $statement);
     return $queryResult;
   }
 
@@ -39,13 +40,15 @@ class Model
 
   public function deleteTask($conn, $id)
   {
-    mysqli_query($conn, "DELETE FROM vtiger_task_list WHERE id=" . $id);
+    $statement = $conn->prepare("DELETE FROM vtiger_task_list WHERE id=(?)");
+    $statement->bind_param("i", $id);
+    $statement->execute();
   }
 
   public function setTask($conn, $data)
   {
-    if (!mysqli_query($conn, "INSERT INTO vtiger_task_list(task) values ('$data')")) {
-      echo mysqli_error($conn);
-    }
+    $statement = $conn->prepare("INSERT INTO vtiger_task_list(task) values (?)");
+    $statement->bind_param("s", $data);
+    $statement->execute();
   }
 }
