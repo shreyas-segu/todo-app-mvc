@@ -17,38 +17,28 @@ class Model
 
   public function connect()
   {
-    $db = mysqli_connect($this->dbHost, $this->user, $this->pass, $this->dbName);
-    if (mysqli_connect_error()) {
-      exit('Connect Error (' . mysqli_connect_errno() . ') '
-        . mysqli_connect_error());
-    }
+    $db = new PDO("mysql:host=$this->dbHost;dbname=$this->dbName", $this->user, $this->pass);
     return $db;
   }
 
   public function getTaskList($conn)
   {
-    $statement = "SELECT * FROM vtiger_task_list";
-    $queryResult = mysqli_query($conn, $statement);
-    return $queryResult;
-  }
-
-  public function getTask($id)
-  {
-    $allTasks = $this->getTaskList();
-    return $allTasks[$id];
+    $sql = "SELECT * FROM vtiger_task_list";
+    $statement = $conn->query($sql);
+    return $statement;
   }
 
   public function deleteTask($conn, $id)
   {
-    $statement = $conn->prepare("DELETE FROM vtiger_task_list WHERE id=(?)");
-    $statement->bind_param("i", $id);
-    $statement->execute();
+    $sql = "DELETE FROM vtiger_task_list WHERE id=(?)";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$id]);
   }
 
   public function setTask($conn, $data)
   {
-    $statement = $conn->prepare("INSERT INTO vtiger_task_list(task) values (?)");
-    $statement->bind_param("s", $data);
-    $statement->execute();
+    $sql = "INSERT INTO vtiger_task_list(task) values (?)";
+    $statement = $conn->prepare($sql);
+    $statement->execute([$data]);
   }
 }

@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <?php 
-                while ($x = mysqli_fetch_array($tasks)) {
+                while ($x = $tasks->fetch()) {
                     echo '<tr>
                     <td>' . $x['task'] . '</td>
                     <td><a class="cancel" href="index.php?del=' . $x['id'] . '">x</a>' . '</td></tr>';
