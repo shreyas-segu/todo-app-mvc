@@ -1,7 +1,7 @@
 <?php
 //Routes all the data throgh the controller
 include_once("controller/Controller.php");
-// include_once("init.php");
+include_once("init.php");
 
 $controller = new Controller();
 $controller->invoke();

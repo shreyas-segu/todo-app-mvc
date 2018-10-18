@@ -11,7 +11,7 @@
     <div class="container">
         <form method="post" action="index.php" class="form-horizontal">
             <div class="input-group mb-3">
-                <input type="text" name="task" placeholder="Enter a task..." class="form-control" autocomplete="off" required>
+                <input type="text" name="task" placeholder="Enter a task..." class="form-control" autocomplete="off" required autofocus>
                 <div class="input-group-append"><button type="submit" name="submit" class="btn btn-primary bg-dark">ADD</button></div>
             </div>
         </form>
