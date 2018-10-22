@@ -1,6 +1,6 @@
 <?php
-include_once("model/Task.php");
-include_once("model/config.php");
+include_once("Task.php");
+include_once("config.php");
 
 class Model
 {
@@ -32,13 +32,17 @@ class Model
   {
     $sql = "DELETE FROM vtiger_task_list WHERE id=(?)";
     $statement = $conn->prepare($sql);
-    $statement->execute([$id]);
+    if ($statement->execute([$id])) {
+      return true;
+    }
   }
 
   public function setTask($conn, $data)
   {
     $sql = "INSERT INTO vtiger_task_list(task) values (?)";
     $statement = $conn->prepare($sql);
-    $statement->execute([$data]);
+    if ($statement->execute([$data])) {
+      return true;
+    }
   }
 }
